@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.services;
 
+import java.security.SecureRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -46,5 +47,14 @@ public class EncryptionService {
         }
 
         return new String(decryptedValue);
+    }
+
+    public String generateEncodedKey() {
+        SecureRandom random = new SecureRandom();
+        byte[] key = new byte[16];
+        random.nextBytes(key);
+        String encodedKey = Base64.getEncoder().encodeToString(key);
+
+        return encodedKey;
     }
 }
