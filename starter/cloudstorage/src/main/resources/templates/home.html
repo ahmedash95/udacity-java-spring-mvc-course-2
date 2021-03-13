@@ -11,7 +11,7 @@
     <body class="p-3 mb-2 bg-light text-black">
         <div class="container">
             <div id="logoutDiv">
-                <form th:action="@{/logout}" method="POST">
+                <form th:action="@{/logout}" method="POST" id="logoutForm">
                     <button type="submit" class="btn btn-secondary float-right">Logout</button>
                 </form>
             </div>
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" th:classappend="${param.notes} ? 'active show' : ''" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
-                        <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showNoteModal()">
+                        <button style="margin: 0.25em;" type="button" id="addNote" class="btn btn-info float-right" onclick="showNoteModal()">
                             + Add a New Note
                         </button>
 
@@ -83,13 +83,13 @@
                                 <tbody>
                                     <tr th:each="note: ${notes}">
                                         <td>
-                                            <button type="button" class="btn btn-success" th:attr="onclick=|showNoteModal('${note.getId()}','${note.getTitle()}', '${note.getDescription()}')|">Edit</button>
-                                            <form style="display: inline-block;" th:action="@{'notes/'+${note.getId()}}" th:method="delete">
+                                            <button th:id="'note-'+${note.getId()}+'-edit'" type="button" class="btn btn-success" th:attr="onclick=|showNoteModal('${note.getId()}','${note.getTitle()}', '${note.getDescription()}')|">Edit</button>
+                                            <form th:id="'note-'+${note.getId()}+'-delete'" style="display: inline-block;" th:action="@{'notes/'+${note.getId()}}" th:method="delete">
                                                 <button class="btn btn-danger">Delete</button>
                                             </form>
                                         </td>
-                                        <th scope="row" th:text="${note.getTitle()}"></th>
-                                        <td th:text="${note.getDescription()}"></td>
+                                        <th th:id="'note-'+${note.getId()}+'-title'" scope="row" th:text="${note.getTitle()}"></th>
+                                        <td th:id="'note-'+${note.getId()}+'-description'" th:text="${note.getDescription()}"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -127,7 +127,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" th:classappend="${param.credentials} ? 'active show' : ''" id="nav-credentials" role="tabpanel" aria-labelledby="nav-credentials-tab">
-                        <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showCredentialModal()">
+                        <button style="margin: 0.25em;" type="button" id="credential-new" class="btn btn-info float-right" onclick="showCredentialModal()">
                             + Add a New Credential
                         </button>
 
@@ -145,13 +145,13 @@
                                 <tr th:each="credential: ${credentials}">
                                     <td>
                                         <button type="button" class="btn btn-success" th:id="${'credential-edit-' + credential.credentialid}" th:data-id="${credential.credentialid}" th:data-url="${credential.url}" th:data-username="${credential.username}" th:data-password="${credential.decryptedPassword}" onclick="showCredentialModal(this.getAttribute('data-id'), this.getAttribute('data-url'), this.getAttribute('data-username'), this.getAttribute('data-password'))" >Edit</button>
-                                        <form style="display: inline-block;" th:action="@{'credentials/'+${credential.credentialid}}" th:method="delete">
+                                        <form th:id="${'credential-delete-' + credential.credentialid}" style="display: inline-block;" th:action="@{'credentials/'+${credential.credentialid}}" th:method="delete">
                                             <button class="btn btn-danger">Delete</button>
                                         </form>
                                     </td>
-                                    <th scope="row" th:text="${credential.getUrl()}"></th>
-                                    <td th:text="${credential.getUsername()}"></td>
-                                    <td th:text="${credential.getPassword()}"></td>
+                                    <th th:id="'credential-'+${credential.credentialid}+'-url'" scope="row" th:text="${credential.getUrl()}"></th>
+                                    <td th:id="'credential-'+${credential.credentialid}+'-username'" th:text="${credential.getUsername()}"></td>
+                                    <td th:id="'credential-'+${credential.credentialid}+'-password'" th:text="${credential.getPassword()}"></td>
                                 </tr>
                                 </tbody>
                             </table>

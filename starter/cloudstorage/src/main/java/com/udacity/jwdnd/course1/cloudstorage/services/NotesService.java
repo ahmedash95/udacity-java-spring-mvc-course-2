@@ -47,4 +47,8 @@ public class NotesService {
 
         noteMapper.delete(noteId);
     }
+
+    public List<Note> getAll() {
+        return noteMapper.getAll();
+    }
 }

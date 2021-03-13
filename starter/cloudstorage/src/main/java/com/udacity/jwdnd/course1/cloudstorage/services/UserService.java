@@ -4,6 +4,7 @@ import com.udacity.jwdnd.course1.cloudstorage.mappers.UserMapper;
 import com.udacity.jwdnd.course1.cloudstorage.models.User;
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,9 @@ public class UserService {
 
     public Optional<User> getUser(String username) {
         return userMapper.getUser(username);
+    }
+
+    public List<User> findAll() {
+        return userMapper.getAll();
     }
 }

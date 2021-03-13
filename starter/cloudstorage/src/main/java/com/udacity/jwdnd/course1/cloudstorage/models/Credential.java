@@ -9,6 +9,12 @@ public class Credential {
     private Long userId;
     private String decryptedPassword;
 
+    public Credential(String url, String username, String password) {
+        this.url = url;
+        this.username = username;
+        this.password = password;
+    }
+
     public Long getCredentialid() {
         return credentialid;
     }

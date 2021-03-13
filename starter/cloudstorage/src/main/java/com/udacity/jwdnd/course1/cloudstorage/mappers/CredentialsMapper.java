@@ -31,4 +31,7 @@ public interface CredentialsMapper {
 
     @Delete("DELETE from credentials WHERE credentialid = #{id}")
     void delete(Long id);
+
+    @Delete("DELETE from credentials")
+    void deleteAll();
 }

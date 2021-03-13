@@ -33,4 +33,11 @@ public interface NoteMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void save(Note note);
 
+    @Select("SELECT * FROM notes")
+    @Results({
+            @Result(property = "id", column = "noteid"),
+            @Result(property = "title", column = "notetitle"),
+            @Result(property = "description", column = "notedescription")
+    })
+    List<Note> getAll();
 }

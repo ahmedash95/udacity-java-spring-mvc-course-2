@@ -65,4 +65,8 @@ public class CredentialsService {
         entity.setKey(encodedKey);
         entity.setPassword(encryptedPassword);
     }
+
+    public void deleteAll() {
+        credentialsMapper.deleteAll();
+    }
 }
