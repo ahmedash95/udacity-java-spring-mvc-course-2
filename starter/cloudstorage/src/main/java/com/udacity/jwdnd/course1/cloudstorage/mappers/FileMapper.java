@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface FileMapper {
     @Select("SELECT * FROM files WHERE userId=#{userId}")
-    List<File> findAllByUserId(Integer userId);
+    List<File> findAllByUserId(Long userId);
 
     @Select("SELECT * FROM files")
     List<File> findAll();
@@ -20,12 +20,9 @@ public interface FileMapper {
     @Options(useGeneratedKeys = true, keyProperty = "fileId")
     void save(File file);
 
-    @Update("UPDATE files SET filename = #{file.filename}, contentType = #{file.contentType}, fileSize = #{file.fileSize}, fileData = #{file.fileData} WHERE fileId = #{id}")
-    void update(File file, Long id);
-
     @Delete("DELETE from files WHERE fileId=#{id}")
     void delete(Long id);
 
     @Select("SELECT * FROM files WHERE filename=#{name} and userid=#{userId}")
-    Optional<Object> findByNameAndUser(String name, Integer userId);
+    Optional<Object> findByNameAndUser(String name, Long userId);
 }

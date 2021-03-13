@@ -35,16 +35,27 @@ public class FilesController extends BaseController {
 
     @PostMapping("/files")
     public String uploadFile(@RequestParam("fileUpload") MultipartFile file, RedirectAttributes redirectAttributes) throws UserNotFoundException, IOException {
+
+        if(file.getOriginalFilename().isEmpty() || file.getSize() <= 0) {
+            redirectAttributes
+                    .addFlashAttribute("message", "File is invalid")
+                    .addFlashAttribute("message_type", "danger");
+
+            return "redirect:/home?files";
+        }
+
         try {
             fileService.storeFile(file, getUser());
             redirectAttributes
-                    .addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename());
+                    .addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename())
+                    .addFlashAttribute("message_type", "success");
         } catch (IOException | FileExistsException ex) {
             redirectAttributes
-                    .addFlashAttribute("message", "File upload failed, an error occurred: " + ex.getMessage());
+                    .addFlashAttribute("message", "File upload failed, an error occurred: " + ex.getMessage())
+                    .addFlashAttribute("message_type","danger");
         }
 
-        return "redirect:/home?file";
+        return "redirect:/home?files";
     }
 
     @GetMapping("/files/{id}")
@@ -63,8 +74,9 @@ public class FilesController extends BaseController {
         File file = fileService.removeFileById(fileId, getUser());
 
         redirectAttributes
-                .addFlashAttribute("message", String.format("Format [%s] has been removed!", file.getFilename()));
+                .addFlashAttribute("message", String.format("Format [%s] has been removed!", file.getFilename()))
+                .addFlashAttribute("message_type", "success");
 
-        return "redirect:/home?file";
+        return "redirect:/home?files";
     }
 }

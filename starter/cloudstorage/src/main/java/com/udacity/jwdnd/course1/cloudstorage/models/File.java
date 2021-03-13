@@ -7,7 +7,7 @@ public class File {
     private String contentType;
     private String fileSize;
     private byte[] fileData;
-    private int userId;
+    private Long userId;
 
     public int getFileId() {
         return fileId;
@@ -49,11 +49,11 @@ public class File {
         this.fileData = fileData;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

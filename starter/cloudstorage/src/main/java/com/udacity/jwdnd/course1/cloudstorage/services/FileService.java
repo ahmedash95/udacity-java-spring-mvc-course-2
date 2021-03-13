@@ -39,11 +39,11 @@ public class FileService {
         return model;
     }
 
-    public List<File> getAll(Integer userId) {
+    public List<File> getAll(Long userId) {
         return fileMapper.findAllByUserId(userId);
     }
 
-    public List<File> getByUserId(Integer userId) {
+    public List<File> getByUserId(Long userId) {
         return fileMapper.findAllByUserId(userId);
     }
 
