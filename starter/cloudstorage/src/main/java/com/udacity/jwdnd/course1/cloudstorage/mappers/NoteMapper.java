@@ -1,6 +1,5 @@
 package com.udacity.jwdnd.course1.cloudstorage.mappers;
 
-import com.udacity.jwdnd.course1.cloudstorage.models.File;
 import com.udacity.jwdnd.course1.cloudstorage.models.Note;
 import java.util.List;
 import java.util.Optional;
