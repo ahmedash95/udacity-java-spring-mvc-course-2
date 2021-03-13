@@ -26,6 +26,11 @@ public class HomeController {
         this.credentialsService = credentialsService;
     }
 
+    @GetMapping("/error")
+    public String errorPage() {
+        return "error";
+    }
+
     @GetMapping("/home")
     public String homeView(Model model) throws UserNotFoundException {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
