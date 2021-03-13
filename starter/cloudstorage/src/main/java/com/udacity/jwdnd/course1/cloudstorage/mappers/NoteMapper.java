@@ -24,7 +24,7 @@ public interface NoteMapper {
     })
     Optional<Note> find(Long id);
 
-    @Update("UPDATE notes SET notetitle = #{note.title}, notedescription = #{note.description} WHERE noteid = #{id}")
+    @Update("UPDATE notes SET notetitle = #{title}, notedescription = #{description} WHERE noteid = #{id}")
     void update(Note note);
 
     @Delete("DELETE from notes WHERE noteid=#{id}")

@@ -28,6 +28,17 @@ public class NotesService {
         return note;
     }
 
+    public Note update(Note note, User user) throws NoteNotFoundException {
+        Optional<Note> n = noteMapper.find(note.getId());
+        if(n.isEmpty() || n.get().getUserId() != user.getUserId()) {
+            throw new NoteNotFoundException();
+        }
+
+        noteMapper.update(note);
+
+        return note;
+    }
+
     public void delete(Long noteId, User user) throws NoteNotFoundException {
         Optional<Note> note = noteMapper.find(noteId);
         if(note.isEmpty() || note.get().getUserId() != user.getUserId()) {

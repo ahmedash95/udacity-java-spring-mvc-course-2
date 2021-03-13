@@ -30,6 +30,16 @@ public class NotesController extends BaseController {
         return "redirect:/home?notes";
     }
 
+    @PostMapping("/notes/{id}")
+    public String update(Model model, @ModelAttribute Note note, RedirectAttributes redirectAttributes) throws UserNotFoundException, NoteNotFoundException {
+        notesService.update(note, getUser());
+
+        redirectAttributes.addFlashAttribute("message", "Note has been updated successfully!")
+                .addFlashAttribute("message_type", "success");
+
+        return "redirect:/home?notes";
+    }
+
     @DeleteMapping("/notes/{id}")
     public String delete(@PathVariable("id") Long noteId, RedirectAttributes redirectAttributes) throws UserNotFoundException, NoteNotFoundException {
         notesService.delete(noteId, getUser());

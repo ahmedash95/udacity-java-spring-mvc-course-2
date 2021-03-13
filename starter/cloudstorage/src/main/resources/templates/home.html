@@ -83,7 +83,8 @@
                                 <tbody>
                                     <tr th:each="note: ${notes}">
                                         <td>
-                                            <button type="button" class="btn btn-success">Edit</button>
+<!--                                            <a th:href="@{'notes/'+${note.getId()}}" class="btn btn-success">Edit</a>-->
+                                            <button type="button" class="btn btn-success" th:attr="onclick=|showNoteModal('${note.getId()}','${note.getTitle()}', '${note.getDescription()}')|">Edit</button>
                                             <form style="display: inline-block;" th:action="@{'notes/'+${note.getId()}}" th:method="delete">
                                                 <button class="btn btn-danger">Delete</button>
                                             </form>
@@ -105,7 +106,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" th:action="@{/notes}">
+                                        <form method="POST" id="noteForm" th:action="@{/notes}">
                                             <input type="hidden" name="noteId" id="note-id">
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">Title</label>
@@ -205,6 +206,9 @@
                 $('#note-id').val(noteId ? noteId : '');
                 $('#note-title').val(noteTitle ? noteTitle : '');
                 $('#note-description').val(noteDescription ? noteDescription : '');
+                if(noteId) {
+                    $('#noteForm').attr('action', 'notes/'+noteId);
+                }
                 $('#noteModal').modal('show');
             }
 
@@ -216,6 +220,7 @@
                 $('#credential-password').val(password ? password : '');
                 $('#credentialModal').modal('show');
             }
+
         </script>
     </body>
 </html>
