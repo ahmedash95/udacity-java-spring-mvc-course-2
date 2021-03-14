@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CredentialsController extends BaseController {
@@ -21,24 +22,32 @@ public class CredentialsController extends BaseController {
     }
 
     @PostMapping("/credentials")
-    public String save(@ModelAttribute Credential credential) throws UserNotFoundException {
+    public String save(@ModelAttribute Credential credential, RedirectAttributes redirectAttributes) throws UserNotFoundException {
         credentialsService.save(credential, getUser());
+        redirectAttributes.addFlashAttribute("message", "Credential record has been stored successfully!")
+                .addFlashAttribute("message_type", "success");
 
         return "redirect:/home?credentials";
     }
 
 
     @PostMapping("/credentials/{id}")
-    public String update(@PathVariable("id") Long id, @ModelAttribute Credential credential) throws UserNotFoundException, CredentialNotFoundException {
+    public String update(@PathVariable("id") Long id, @ModelAttribute Credential credential, RedirectAttributes redirectAttributes) throws UserNotFoundException, CredentialNotFoundException {
         credential.setCredentialid(id);
         credentialsService.update(credential, getUser());
+
+        redirectAttributes.addFlashAttribute("message", "Credential record has been updated successfully!")
+                .addFlashAttribute("message_type", "success");
 
         return "redirect:/home?credentials";
     }
 
     @DeleteMapping("/credentials/{id}")
-    public String delete(@PathVariable("id") Long id) throws UserNotFoundException, CredentialNotFoundException {
+    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) throws UserNotFoundException, CredentialNotFoundException {
         credentialsService.delete(id, getUser());
+
+        redirectAttributes.addFlashAttribute("message", "Credential record has been deleted successfully!")
+                .addFlashAttribute("message_type", "success");
 
         return "redirect:/home?credentials";
     }
