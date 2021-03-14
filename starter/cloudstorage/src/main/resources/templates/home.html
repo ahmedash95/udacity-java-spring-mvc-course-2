@@ -83,7 +83,7 @@
                                 <tbody>
                                     <tr th:each="note: ${notes}">
                                         <td>
-                                            <button th:id="'note-'+${note.getId()}+'-edit'" type="button" class="btn btn-success" th:attr="onclick=|showNoteModal('${note.getId()}','${note.getTitle()}', '${note.getDescription()}')|">Edit</button>
+                                            <button type="button" class="btn btn-success" th:id="'note-'+${note.getId()}+'-edit'" th:data-id="${note.getId()}" th:data-title="${note.title}" th:data-description="${note.description}" onclick="showNoteModal(this.getAttribute('data-id'), this.getAttribute('data-title'), this.getAttribute('data-description'))" >Edit</button>
                                             <form th:id="'note-'+${note.getId()}+'-delete'" style="display: inline-block;" th:action="@{'notes/'+${note.getId()}}" th:method="delete">
                                                 <button class="btn btn-danger">Delete</button>
                                             </form>
