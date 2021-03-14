@@ -10,12 +10,12 @@
     </head>
     <body class="p-3 mb-2 bg-light text-black">
         <div class="container">
-            <div id="logoutDiv">
+            <div id="logoutDiv" class="clearfix">
                 <form th:action="@{/logout}" method="POST" id="logoutForm">
                     <button type="submit" class="btn btn-secondary float-right">Logout</button>
                 </form>
             </div>
-            <div>
+            <div class="mt-5">
                 <div th:if="${message}" th:text="${message}" class="alert mt-2" th:classappend="${message_type} ? 'alert-' + ${message_type} : 'alert-secondary'" role="alert">
                 </div>
             </div>
